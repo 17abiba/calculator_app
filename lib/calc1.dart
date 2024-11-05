@@ -170,8 +170,9 @@ class _Calc1 extends State<Calc1> {
       }
     });
   }
-  
-  String percentageBtn(String input) {
+
+//I understand the base, but my understanding feels incomplete.
+String percentageBtn(String input) {
   final parts = RegExp(r'(\d+(\.\d+)?)%(\d+(\.\d+)?)?');
 
   input = input.replaceAllMapped(parts, (groups) {
@@ -181,25 +182,47 @@ class _Calc1 extends State<Calc1> {
     if (partTwo != null) {
       double secondNumber = double.parse(partTwo);
       double resultNum = ((partOne / 100) * secondNumber);
-      output = (resultNum == resultNum.roundToDouble()) ? resultNum.toStringAsFixed(0) : resultNum.toString();
+      String output = (resultNum == resultNum.roundToDouble()) 
+          ? resultNum.toStringAsFixed(0) 
+          : resultNum.toString();
       return output;
     } else {
       return (partOne / 100).toString();
     }
   });
 
-  final multPercent = RegExp(r'(\d+(\.\d+)?)(\s*\*\s*)(\d+(\.\d+)?%)');
+  final multPercent = RegExp(r'(\d+(\.\d+)?)(\s*[\+\-\*/]\s*)(\d+(\.\d+)?%)');
   
   input = input.replaceAllMapped(multPercent, (groups) {
     double firstNumber = double.parse(groups.group(1)!);
+    String operator = groups.group(3)!.trim();
     String percent = groups.group(4)!;
     double numPercent = double.parse(percent.replaceAll('%', '')) / 100;
-    double result = firstNumber * numPercent;
+    double result;
+    
+    switch (operator) {
+      case '+':
+        result = firstNumber + (firstNumber * numPercent);
+        break;
+      case '-':
+        result = firstNumber - (firstNumber * numPercent);
+        break;
+      case '*':
+        result = firstNumber * numPercent;
+        break;
+      case '/':
+        result = firstNumber / numPercent;
+        break;
+      default:
+        result = firstNumber;
+    }
+    
     return result.toString();
   });
 
-  return input;
+  return input; 
 }
+
   @override
   
    Widget build(BuildContext context) {
