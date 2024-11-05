@@ -147,7 +147,7 @@ class _Calc1 extends State<Calc1> {
           output = "Error";
         }
       }else if (input.contains("%")) {
-        percentageBtn(input);
+        output = percentageBtn(input);
     }else if (input.contains("!")||input.contains("inv")){
         output = "Error";
       }else {
