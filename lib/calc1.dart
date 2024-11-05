@@ -170,7 +170,7 @@ class _Calc1 extends State<Calc1> {
       }
     });
   }
-  
+  //Not Completed
   String percentageBt(String input) {
   final parts = RegExp(r'(\d+(\.\d+)?)%(\d+(\.\d+)?)?');
 
@@ -308,15 +308,6 @@ class _Calc1 extends State<Calc1> {
                mainButton("8"),
                mainButton("9"),
                mainButton("*"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              mainButton("7"),
-              mainButton("8"),
-              mainButton("9"),
-              mainButton("*"),
             ],
           ),
           Row(
