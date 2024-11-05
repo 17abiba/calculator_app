@@ -188,13 +188,13 @@ class _Calc1 extends State<Calc1> {
     }
   });
 
-  final mulPercent = RegExp(r'(\d+(\.\d+)?)(\s*\*\s*)(\d+(\.\d+)?%)');
+  final multPercent = RegExp(r'(\d+(\.\d+)?)(\s*\*\s*)(\d+(\.\d+)?%)');
   
-  input = input.replaceAllMapped(mulPercent, (groups) {
+  input = input.replaceAllMapped(multPercent, (groups) {
     double firstNumber = double.parse(groups.group(1)!);
-    String percentMatch = groups.group(4)!;
-    double percentage = double.parse(percentMatch.replaceAll('%', '')) / 100;
-    double result = firstNumber * percentage;
+    String percent = groups.group(4)!;
+    double numPercent = double.parse(percent.replaceAll('%', '')) / 100;
+    double result = firstNumber * numPercent;
     return result.toString();
   });
 
