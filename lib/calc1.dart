@@ -147,7 +147,7 @@ class _Calc1 extends State<Calc1> {
           output = "Error";
         }
       }else if (input.contains("%")) {
-        output = percentageBtn(input);
+        output = percentageBt(input);
     }else if (input.contains("!")||input.contains("inv")){
         output = "Error";
       }else {
@@ -170,59 +170,24 @@ class _Calc1 extends State<Calc1> {
       }
     });
   }
-
-//I understand the base, but my understanding feels incomplete :(
-String percentageBtn(String input) {
+  
+  String percentageBt(String input) {
   final parts = RegExp(r'(\d+(\.\d+)?)%(\d+(\.\d+)?)?');
 
-  input = input.replaceAllMapped(parts, (groups) {
-    double partOne = double.parse(groups.group(1)!);
-    String? partTwo = groups.group(3); 
+  input = input.replaceAllMapped(parts, (match) {
+    double partOne = double.parse(match.group(1)!);
+    String? partTwo = match.group(3); 
 
     if (partTwo != null) {
       double secondNumber = double.parse(partTwo);
-      double resultNum = ((partOne / 100) * secondNumber);
-      String output = (resultNum == resultNum.roundToDouble()) 
-          ? resultNum.toStringAsFixed(0) 
-          : resultNum.toString();
-      return output;
+      return ((partOne / 100) * secondNumber).toString();
     } else {
       return (partOne / 100).toString();
     }
   });
 
-  final multPercent = RegExp(r'(\d+(\.\d+)?)(\s*[\+\-\*/]\s*)(\d+(\.\d+)?%)');
-  
-  input = input.replaceAllMapped(multPercent, (groups) {
-  double firstNumber = double.parse(groups.group(1)!);
-  String operator = groups.group(3)!.trim();
-  String percent = groups.group(4)!;
-  double numPercent = double.parse(percent.replaceAll('%', '')) / 100;
-  double result;
-  
-  switch (operator) {
-    case '+':
-      result = firstNumber + (firstNumber * numPercent);
-      break;
-    case '-':
-      result = firstNumber - (firstNumber * numPercent);
-      break;
-    case '*':
-      result = firstNumber * numPercent;
-      break;
-    case '/':
-      result = firstNumber / numPercent;
-      break;
-    default:
-      result = firstNumber;
-  }
-  
-  return result.toString();
-});
-
-  return input; 
+  return input;
 }
-
   @override
   
    Widget build(BuildContext context) {
@@ -343,6 +308,15 @@ String percentageBtn(String input) {
                mainButton("8"),
                mainButton("9"),
                mainButton("*"),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              mainButton("7"),
+              mainButton("8"),
+              mainButton("9"),
+              mainButton("*"),
             ],
           ),
           Row(
